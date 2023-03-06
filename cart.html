@@ -15,6 +15,12 @@
 
 <body>
   <div id="app">
+    <loading :active="isLoading"
+             :color="color"
+             :is-full-page="fullPage"
+             :loader="loader"
+             :background-color="backgroundColor">
+    </loading>
     <div class="container">
       <div class="mt-4">
         <!-- 產品Modal -->
@@ -25,7 +31,6 @@
           ref="productModal">
         </product-modal>
         <!-- 產品Modal -->
-
         <table class="table align-middle">
           <thead>
             <tr>
@@ -215,47 +220,47 @@
     </div>
   </div>
   <script type="text/x-template" id="userProductModal">
-  <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content border-0">
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
-            <span>{{ tempProdut.title }}</span>
-          </h5>
-          <button type="button" class="btn-close"
-                  data-bs-dismiss="modal" aria-label="Close">
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <img class="img-fluid" alt="" :src="tempProdut.imageUrl">
-            </div>
-            <div class="col-sm-6">
-              <span class="badge bg-primary rounded-pill"></span>
-              <p>商品描述：{{ tempProdut.description }}</p>
-              <p>商品內容：{{ tempProdut.content }}</p>
-              <div class="h5" v-if="tempProdut.price === tempProdut.origin_price">{{ tempProdut.price }} 元</div>
-              <div v-else>
-                <del class="h6">原價 {{ tempProdut.origin_price }} 元</del>
-                <div class="h5">現在只要 {{ tempProdut.price }} 元</div>
-              </div>
-              <div>
-              <div class="input-group">
-                <!-- 用選的防止用戶亂輸入 -->
-                <select name="" id="" class="form-select" v-model="qty">
-                  <option :value="i" v-for="i in 10" :key="`${i}1561`">{{ i }}</option>
-                </select>
-                <button type="button" class="btn btn-primary" @click="addToCart(tempProdut.id, qty)">加入購物車</button>
-              </div>
-            </div>
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="exampleModalLabel">
+              <span>{{ tempProdut.title }}</span>
+            </h5>
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close">
+            </button>
           </div>
-          <!-- col-sm-6 end -->
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <img class="img-fluid" alt="" :src="tempProdut.imageUrl">
+              </div>
+              <div class="col-sm-6">
+                <span class="badge bg-primary rounded-pill"></span>
+                <p>商品描述：{{ tempProdut.description }}</p>
+                <p>商品內容：{{ tempProdut.content }}</p>
+                <div class="h5" v-if="tempProdut.price === tempProdut.origin_price">{{ tempProdut.price }} 元</div>
+                <div v-else>
+                  <del class="h6">原價 {{ tempProdut.origin_price }} 元</del>
+                  <div class="h5">現在只要 {{ tempProdut.price }} 元</div>
+                </div>
+                
+                <div class="input-group">
+                  <!-- 用選的防止用戶亂輸入 -->
+                  <select name="" id="" class="form-select" v-model="qty">
+                    <option :value="i" v-for="i in 10" :key="`${i}1561`">{{ i }}</option>
+                  </select>
+                  <button type="button" class="btn btn-primary" @click="addToCart(tempProdut.id, qty)">加入購物車</button>
+                </div>
+              </div>
+            </div>
+            <!-- col-sm-6 end -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </script>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
@@ -271,6 +276,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6"></script>
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6/dist/css/index.css" rel="stylesheet">
   <script type="module" src="./cart.js"></script>
 </body>
 

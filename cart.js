@@ -70,12 +70,18 @@ const app = createApp({
         },
         message: "",
       },
+      color: "#ff0000",
+      isLoading: false,
+      fullPage: false,
+      loader: "bars",
+      backgroundColor: "#ecc"
     };
   },
   methods: {
     getProducts() {
       axios.get(`${apiUrl}/api/${apiPath}/products/all`).then((res) => {
         this.products = res.data.products;
+        this.isLoading = false
       });
     },
     openModal(id) {
@@ -139,9 +145,10 @@ const app = createApp({
     },
   },
   components: {
-    productModal,
+    productModal
   },
   mounted() {
+    this.isLoading = true
     this.getProducts();
     this.getCarts();
   },
@@ -153,5 +160,7 @@ const app = createApp({
 app.component("VForm", VeeValidate.Form);
 app.component("VField", VeeValidate.Field);
 app.component("ErrorMessage", VeeValidate.ErrorMessage);
+app.use(VueLoading.LoadingPlugin);
+app.component('loading', VueLoading.Component)
 
 app.mount("#app");
