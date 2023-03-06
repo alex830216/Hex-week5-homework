@@ -49,6 +49,7 @@ const productModal = {
     // 監聽 modal，當 modal 關閉時清空產品 id，讓 watch 可以正常運作
     this.$refs.modal.addEventListener("hidden.bs.modal", (event) => {
       this.openModal("");
+      this.qty = 1;
     });
   },
 };
